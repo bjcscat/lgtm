@@ -44,7 +44,7 @@ jobs:
               repo: context.repo.repo,
               pull_number: pr.number,
               event: "APPROVE",
-              body: "approved"
+              body: "lgtm!"
             });
 
       - name: Merge the PR
