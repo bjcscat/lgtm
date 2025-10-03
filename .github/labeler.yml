@@ -1,0 +1,10 @@
+# Configuration for actions/labeler
+# https://github.com/actions/labeler
+
+workflows:
+  - changed-files:
+    - any-glob-to-any-file: '.github/**'
+
+license:
+  - changed-files:
+    - any-glob-to-any-file: 'LICENSE*'
