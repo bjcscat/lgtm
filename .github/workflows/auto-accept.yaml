@@ -1,4 +1,4 @@
-name: auto-accept
+name: auto-merge
 on:
   pull_request_target:
     types: [opened, reopened, synchronize, ready_for_review]
@@ -12,23 +12,28 @@ permissions:
   statuses: read
 
 jobs:
-  auto-approve-and-merge:
+  label-and-merge:
     if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     steps:
+      - name: Apply labels to the PR
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml
+
       - name: Check for merge conflicts
         uses: actions/github-script@v7
         with:
           script: |
             const pr = context.payload.pull_request;
-            
-            // Check if PR is mergeable
+
             const { data: pullRequest } = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: pr.number
             });
-            
+
             if (pullRequest.mergeable === false) {
               core.setFailed('PR has merge conflicts');
             } else if (pullRequest.mergeable === null) {
@@ -48,6 +53,29 @@ jobs:
               }
             }
 
+      - name: Check for labels
+        if: ${{ success() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            
+            const { data: pullRequest } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+            
+            const labels = pullRequest.labels.map(label => label.name);
+            const forbiddenLabels = labels.filter(label => 
+              label === 'workflows' || label === 'license'
+            );
+            
+            if (forbiddenLabels.length > 0) {
+              const labelList = forbiddenLabels.join(', ');
+              core.setFailed(`PR has labels that block automerge.`);
+            }
+
       - name: Auto-approve PR
         if: ${{ success() }}
         uses: actions/github-script@v7
@@ -63,10 +91,10 @@ jobs:
             });
 
       - name: Auto-merge PR
+        if: ${{ success() }}
         uses: pascalgn/automerge-action@v0.16.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MERGE_LABELS: "!workflows,!license"
           MERGE_METHOD: "squash"
           MERGE_COMMIT_MESSAGE: "automatic"
           MERGE_DELETE_BRANCH: true
