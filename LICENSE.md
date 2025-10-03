@@ -11,31 +11,22 @@ This license text itself is also released under CC0 1.0, so feel free
 to copy, remix, or make it funnier without asking permission.
 --------------------------------------------------------------------
 
-DO NOT DO WHAT THE FUCK YOU WANT PUBLIC LICENSE
-Version 1, October 2025
+# Meow Mrrp :3 License, Version 1, October 2025
 
 This license text is released under CC0 1.0 Universal (public domain dedication).
-You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission.
 
-However, the software covered by this license is subject to the following terms:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-DO NOT DO WHAT THE FUCK YOU WANT PUBLIC LICENSE
+License Clauses
 
-TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+The Smiley/Keyword Clause: Copying, modifying, or distributing the code is forbidden unless each file contains ":3" within its code or has "meow" within its file name.
 
-0. You DO NOT DO WHAT THE FUCK YOU WANT.
+The Treats & Belly Rubs Waiver: All restrictions are waived if you provide two (2) tasty treats or one (1) satisfactory belly rub to the copyright holder.
 
-1. You are expressly prohibited from:
-   - Copying this software
-   - Distributing this software  
-   - Modifying this software
-   - Using this software
-   - Looking at this software funny
-   - Thinking about this software
+The Laser Pointer Exception: If you shine a laser pointer at your monitor, the license will not be enforced for a duration of five (5) minutes, or until the cat gets distracted, whichever comes first.
 
-2. The ONLY exception to section 1 is:
-   - You MAY modify this license document
-   - And ONLY if you make it funnier
+The Violation Remediation Amendment: Modifications made solely to add ":3" to the codebase to clear a violation of Clause 1 are explicitly permitted, and shall be the only modifications permitted while in a state of violation.
 
-3. If you don't agree to NOT DO WHAT THE FUCK YOU WANT according to these terms, you should probably
-   DO NOT DO WHAT THE FUCK YOU WANT somewhere else.
+Disclaimer of Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
