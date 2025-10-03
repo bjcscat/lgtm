@@ -1,0 +1,2 @@
+restricted:
+  - .github/**/*
