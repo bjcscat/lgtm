@@ -1,3 +1,3 @@
-this auto accepts all PRs except those modifying .github
+this auto accepts all PRs except those modifying .github or the license
 
 have fun
