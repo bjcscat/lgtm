@@ -1,0 +1,19 @@
+name: Label Forbidden Files
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label-forbidden-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apply labels for .github and LICENSE changes
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml
