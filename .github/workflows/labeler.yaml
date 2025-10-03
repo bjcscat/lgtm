@@ -1,4 +1,4 @@
-name: Label Forbidden Files
+name: labeler
 
 on:
   pull_request:

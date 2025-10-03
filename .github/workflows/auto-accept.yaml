@@ -16,7 +16,40 @@ jobs:
     if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     steps:
+      - name: Check for merge conflicts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            
+            // Check if PR is mergeable
+            const { data: pullRequest } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+            
+            if (pullRequest.mergeable === false) {
+              core.setFailed('PR has merge conflicts');
+            } else if (pullRequest.mergeable === null) {
+              // GitHub is still calculating mergeable status, wait and check again
+              await new Promise(resolve => setTimeout(resolve, 2000));
+              
+              const { data: updatedPR } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number
+              });
+              
+              if (updatedPR.mergeable === false) {
+                core.setFailed('PR has merge conflicts');
+              } else if (updatedPR.mergeable === null) {
+                core.setFailed('Unable to determine PR merge status');
+              }
+            }
+
       - name: Auto-approve PR
+        if: ${{ success() }}
         uses: actions/github-script@v7
         with:
           script: |
