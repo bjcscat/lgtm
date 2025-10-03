@@ -2,6 +2,8 @@ name: auto-accept
 on:
   pull_request_target:
     types: [opened, reopened, synchronize, ready_for_review]
+  pull_request:
+    types: [labeled, unlabeled]
 
 permissions:
   contents: write
@@ -14,27 +16,7 @@ jobs:
     if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     steps:
-      - name: Block .github changes
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-            const number = context.payload.pull_request.number;
-
-            const files = await github.paginate(
-              github.rest.pulls.listFiles,
-              { owner, repo, pull_number: number, per_page: 100 }
-            );
-
-            const offenders = files.filter(f => f.filename.startsWith('.github/'));
-            if (offenders.length) {
-              const list = offenders.map(f => `${f.status} ${f.filename}`).join('\n');
-              core.setFailed(`Touching .github is forbidden. Offending changes:\n${list}`);
-            }
-
-      - name: Approve the PR
-        if: ${{ success() }}
+      - name: Auto-approve PR
         uses: actions/github-script@v7
         with:
           script: |
@@ -47,23 +29,11 @@ jobs:
               body: "lgtm!"
             });
 
-      - name: Merge the PR
-        if: ${{ success() }}
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const pr = context.payload.pull_request;
-            try {
-              await github.rest.pulls.merge({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: pr.number,
-                merge_method: "squash",
-                sha: pr.head.sha
-              });
-            } catch (e) {
-              await github.graphql(
-                `mutation($id:ID!){ enablePullRequestAutoMerge(input:{pullRequestId:$id, mergeMethod:SQUASH}){ clientMutationId } }`,
-                { id: pr.node_id }
-              );
-            }
+      - name: Auto-merge PR
+        uses: pascalgn/automerge-action@v0.16.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_LABELS: "!workflows,!license"
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "automatic"
+          MERGE_DELETE_BRANCH: true

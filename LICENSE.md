@@ -1,3 +1,16 @@
+--------------------------------------------------------------------
+This project is dedicated to the public domain under CC0 1.0.
+https://creativecommons.org/publicdomain/zero/1.0/
+
+The following "license" is parody and has no legal effect. It is 
+included for thematic purposes only. It does not override the fact 
+that the actual code/content of this repository is released into the 
+public domain via CC0 1.0.
+
+This license text itself is also released under CC0 1.0, so feel free 
+to copy, remix, or make it funnier without asking permission.
+--------------------------------------------------------------------
+
 DO NOT DO WHAT THE FUCK YOU WANT PUBLIC LICENSE
 Version 1, October 2025
 
