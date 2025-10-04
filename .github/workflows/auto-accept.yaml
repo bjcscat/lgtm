@@ -97,4 +97,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_METHOD: "squash"
           MERGE_COMMIT_MESSAGE: "automatic"
+          MERGE_LABELS: "!workflows,!license"
           MERGE_DELETE_BRANCH: true
